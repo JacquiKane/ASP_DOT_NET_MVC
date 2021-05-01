@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MVC Your ASP.net</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Add icon library for download button-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            /* Preferred icon size */
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+            /* Support for all WebKit browsers. */
+            -webkit-font-smoothing: antialiased;
+            /* Support for Safari and Chrome. */
+            text-rendering: optimizeLegibility;
+            /* Support for Firefox. */
+            -moz-osx-font-smoothing: grayscale;
+            /* Support for IE. */
+            font-feature-settings: 'liga';
+            color: #0D9E15;
+        }
+
+        @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+        @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+        .cardbody {
+            font-family: 'Indie Flower', cursive !important;
+            background: #FDE3A7;
+            /*CAPE HONEY*/
+            margin: 0px;
+            padding: 0px;
+        }
+
+        ::selection {
+            background: transparent;
+        }
+
+        .infocell {
+            background-color: powderblue;
+            text-align: center;
+        }
+
+        h4 {
+            font-size: 26px;
+            line-height: 1px;
+            font-family: 'Amatic SC', cursive !important;
+            padding-top: 5px;
+        }
+
+        .color1 {
+            color: #1BBC9B
+        }
+
+        /*MOUNTAIN MEADOW*/
+
+        .color2 {
+            color: #C0392B
+                /*TALL POPPY*/
+        }
+
+        .cardgreeting {
+            color: #013243;
+            /*SHERPA BLUE*/
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            width: 300px;
+            height: 400px;
+            background: #e0e1dc;
+            transform-style: preserve-3d;
+            transform: translate(-50%, -50%) perspective(2000px);
+            box-shadow: inset 300px 0 50px rgba(0, 0, 0, .5), 20px 0 60px rgba(0, 0, 0, .5);
+            transition: 1s;
+        }
+
+        .cardgreeting:hover {
+            transform: translate(-50%, -50%) perspective(2000px) rotate(15deg) scale(1.2);
+            box-shadow: inset 20px 0 50px rgba(0, 0, 0, .5), 0 10px 100px rgba(0, 0, 0, .5);
+        }
+
+        .cardgreeting:before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #BAC1BA;
+            transform-origin: bottom;
+            transform: skewX(-45deg);
+        }
+
+        .cardgreeting:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -5px;
+            width: 5px;
+            height: 100%;
+            background: #92A29C;
+            transform-origin: left;
+            transform: skewY(-45deg);
+        }
+
+        .cardgreeting .imgBox {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-origin: left;
+            transition: .7s;
+        }
+
+        .cardgreeting .bark {
+            position: absolute;
+            background: #e0e1dc;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: .7s;
+        }
+
+        .cardgreeting .imgBox img {
+            min-width: 250px;
+            max-height: 400px;
+        }
+
+        .cardgreeting:hover .imgBox {
+            transform: rotateY(-135deg);
+        }
+
+        .cardgreeting:hover .bark {
+            opacity: 1;
+            transition: .6s;
+            box-shadow: 300px 200px 100px rgba(0, 0, 0, .4) inset;
+        }
+
+        .cardgreeting .details {
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            padding: 0 0 0 10px;
+            z-index: -1;
+            margin-top: 70px;
+        }
+
+        .cardgreeting .details p {
+            font-size: 15px;
+            line-height: 5px;
+            transform: rotate(-10deg);
+            padding: 0 0 0 20px;
+        }
+
+        .cardgreeting .details h4 {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .floatleft {
+            float: left;
+            background-color: lightcyan;
+            width: 25%;
+            height: 100%;
+        }
+
+        .justfloatleft {
+            float: left;
+            background-color: lightcyan;
+            width: 100%;
+            height: 100%;
+        }
+
+        .floatright {
+            float: right;
+            background-color: lightcyan;
+            width: 25%;
+            height: 100%;
+        }
+
+        .floatcenter {
+            float: left;
+            background-color: lightcyan;
+            width: 50%;
+            height: 20%;
+        }
+
+        .unitcard {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            width: 95%;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+
+        .pocketguidetypes {
+            font-family: 'Amatic SC', cursive !important;
+            font-weight: bold;
+            font-size: 150;
+            text-align: center;
+            color: rgb(0, 0, 255);
+            background: lightcyan;
+        }
+
+        .quote {
+            color: rgb(0, 0, 255);
+            font-style: italic;
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin-bottom: 2px;
+        }
+
+        td {
+            position: relative;
+            padding-right: 2px;
+            vertical-align: top;
+        }
+
+        /* Important part */
+
+        .modal-dialog {
+            overflow-y: initial !important
+        }
+
+        .modal-body {
+            height: 80vh;
+            overflow-y: auto;
+        }
+
+        .visibilitymatters {
+            width: 75px;
+            height: auto;
+        }
+
+        .visibilityreallymatters {
+            width: 500px;
+            height: auto;
+        }
+
+        .imageannotate {
+            width: 300px;
+            height: auto;
+        }
+
+        .imageannotatenofocus {
+            width: 50px;
+            height: auto;
+        }
+
+        .imageannotateplus {
+            width: 400px;
+            height: auto;
+        }
+
+        .headercsp {
+            background: rgb(54, 65, 65);
+        }
+
+        .carousel-item.active,
+        .carousel-item-next,
+        .carousel-item-prev {
+            display: block;
+        }
+
+        .carouselback {
+            background-color: teal;
+        }
+
+        .carouseldef {
+            width: 100%;
+            padding-left: 0%;
+            text-align: center;
+            justify-content: center;
+            color: seashell;
+        }
+
+        .carouselh3 {
+            color: seashell;
+        }
+
+        .spacer {
+            margin-top: 200px;
+        }
+
+        .popovertable td {
+            border: 1px dashed blue;
+        }
+
+        .contentBordered {
+            max-width: 300px;
+            min-width: 100px;
+            border: 5px solid blue;
+            border-radius: 25px;
+            margin-left: 25px;
+        }
+        .codesamples {
+            width: 800px;
+            height: auto;
+        }
+    </style>
+
+</head>
+<html>
+
+<body>
+    <div class="container">
+        <div class="headercsp">
+            <h1 class="pocketguidetypes"> <i>MVC</i> & ASP.net 101, A Tutorial</h1>
+        </div>
+
+
+        <div class="row">
+
+
+
+            <!-- vocabulary carousel -->
+            <div class="col sm-6 floatcenter">
+                <div class="container carouselback">
+                    <div id="carouselContentunit1" class="carousel carouselback slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active text-center p-4">
+                                <h3 class="carouselh3">MVC</h3>
+                                <h6>Model View Controller</h6>
+                                <p class="carouseldef">design pattern
+                                </p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">ASP</h3>
+                                <h6>Active Server Pages</h6>
+                                <p class="carouseldef">open-source, server-side web-application framework</p>
+                            </div>
+
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">entity-framework</h3>
+                                <h6>mapper</h6>
+                                <p class="carouseldef"> object-database mapper for . NET
+                                </p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">SQL server</h3>
+                                <h6>Database </h6>
+                                <p class="carouseldef">Relational Database Management System</p>
+                            </div>
+
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">Model</h3>
+                                <h6>MVC</h6>
+                                <p class="carouseldef">object representing the data</p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">view</h3>
+                                <h6>MVC</h6>
+                                <P class="carouseldef">rendered interface the user sees
+                                </p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">Controller</h3>
+                                <h6>MVC</h6>
+                                <p class="carouseldef">
+                                <P class="carouseldef">
+                                    handles requests, connects view with model</p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">Separation of Concerns</h3>
+                                <h6>Patterns</h6>
+                                <P class="carouseldef">
+                                    Each component acts independently</p>
+                            </div>
+
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">Routes</h3>
+                                <h6>MVC</h6>
+                                <p class="carouseldef">
+                                <P class="carouseldef">
+                                    rules to map URL to controller</p>
+                            </div>
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">Action Method</h3>
+                                <h6>controller class</h6>
+                                <P class="carouseldef">public method defined on controller class</p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">Razor</h3>
+                                <h6>ASP.net, MVC </h6>
+                                <P class="carouseldef">special syntax, C# with HTML</p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">ViewData</h3>
+                                <h6>ASP.net, Razor</h6>
+                                <P class="carouseldef">dictionary, passes data between controller and view</p>
+                            </div>
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">ViewBag</h3>
+                                <h6>ASP.net, Razor</h6>
+                                <P class="carouseldef">dynamic variable, passes data between controller and view
+                                </p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">HTTP Requests</h3>
+                                <h6>HTTP</h6>
+                                <P class="carouseldef">requests to transfer data, like get and post requests </p>
+                            </div>
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">HTML helper Methods</h3>
+                                <h6>Razor</h6>
+                                <P class="carouseldef">special methods that insert HTML code</p>
+                            </div>
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">Data Annotations</h3>
+                                <h6>validation</h6>
+                                <P class="carouseldef">attributes that specify validation rules</p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">database context</h3>
+                                <h6>data</h6>
+                                <P class="carouseldef">turns SQL database entity into class
+                                </p>
+                            </div>
+
+                            <div class="carousel-item text-center p-4">
+
+                                <h3 class="carouselh3">data analysis process</h3>
+                                <h6>data analysis</h6>
+                                <P class="carouseldef">collecting, cleaning/filtering, visualizing data, and concluding
+                                </p>
+                            </div>
+
+
+                        </div>
+
+
+
+
+
+                        <a class="carousel-control-prev" href="#carouselContentunit1" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselContentunit1" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div>
+            <p></p>
+        </div>
+
+        <div class="row row-cols-s-1 row-cols-sm-2 row-cols-2 row-cols-md-3 row-cols-lg-4" style="padding-left:15%;">
+
+            <!-- MVC -->
+            <section class="contentBordered mb-5 col-10 col-md-6 col-lg-4 col-xl-3">
+                <a data-toggle="modal" data-target="#mvc" data-highres="mvc.png" href="#">
+                    <img src=".\images\mvc.png" alt="unit1" style="width:100%">
+                </a>
+                <div class="container">
+                    <h4><b>MVC</b></h4>
+                    <p>... Design Pattern ...</p>
+                </div>
+            </section>
+
+            <!-- Benefits of ASP.net -->
+            <section class="contentBordered mb-5 col-10 col-md-6 col-lg-4 col-xl-3">
+                <a data-toggle="modal" data-target="#benefitsmvcasp" data-highres="benefitsofasp.png" href="#">
+                    <img src="images\benefitsofasp.png" alt="Benefits" style="width:100%">
+                </a>
+                <div class="container">
+                    <h4><b>Benefits</b></h4>
+                    <p>.. of ASP.net</p>
+                </div>
+            </section>
+
+
+            <!-- Strategy ASP.net -->
+            <section class="contentBordered mb-5 col-10 col-md-6 col-lg-4 col-xl-3">
+                <a data-toggle="modal" data-target="#aspdotnetmvc" data-highres="aspdotnetmvc.png" href="#">
+                    <img src=".\images\aspdotnetmvc.png" alt="unit2" style="width:100%">
+                </a>
+                <div class="container">
+                    <h4><b>Strategy</b></h4>
+                    <p>Platforms...</p>
+                </div>
+            </section>
+        </div>
+
+        <div class="row row-cols-s-1 row-cols-sm-2 row-cols-2 row-cols-md-3 row-cols-lg-4" style="padding-left:15%;">
+            <!-- Steps -->
+            <section class="contentBordered mb-5 col-10 col-md-6 col-lg-4 col-xl-3">
+                <a data-toggle="modal" data-target="#steps" data-highres="stepsinmvc.png" href="#">
+                    <img src=".\images\stepsinmvc.png" alt="steps" style="width:100%">
+                </a>
+                <div class="container">
+                    <h4><b>Steps</b></h4>
+                    <p>How Parts Talk...</p>
+                </div>
+            </section>
+
+
+            <!-- Folder Structure -->
+            <section class="contentBordered mb-5 col-10 col-md-6 col-lg-4 col-xl-3">
+                <a data-toggle="modal" data-target="#solexplr" data-highres="steps.png" href="#">
+                    <img src=".\images\steps.png" alt="unit1" style="width:100%">
+                </a>
+                <div class="container">
+                    <h4><b>Solution</b></h4>
+                    <p>Explorer...</p>
+                </div>
+            </section>
+
+
+            <!-- How does it work -->
+            <section class="contentBordered mb-5 col-10 col-md-6 col-lg-4 col-xl-3">
+                <a data-toggle="modal" data-target="#programming" data-highres="algorithms.png" href="#">
+                    <img src=".\images\algorithms.png" alt="unit1" style="width:100%">
+                </a>
+                <div class="container">
+                    <h4><b>Mechanics</b></h4>
+                    <p>Working parts...</p>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="row" style="padding-left:15%;">
+           <!-- Full width -->
+
+           <button type="button" class="btn btn-outline-success" style="width: 80%; background-color: teal;"> 
+            <a href="instructions.pdf" style="color:azure"> Need a refresher? Click To See The Steps In This Tutorial</a>
+          </button>
+          
+
+</div>
+
+
+    </div>
+
+    </div>
+
+
+
+
+
+    <!-- MODALS -->
+
+
+    <!-- Modal 1 MVC Design Pattern -->
+    <div class="modal fade" id="mvc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mvcLabel">MVC, Design Patterns</h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td style="width:20%">
+                                <span class="quote">Design that doesn’t take change into account risks
+                                    major redesign - Erich Gamma</span>
+                            </td>
+                            <td>
+                                <i class="material-icons custom">question_answer</i>
+                                <p>
+                                    Design patterns are pre-made blueprints that you can customize to
+                                    solve a design problem with code.
+
+                                    The pattern is not a specific piece of code, but a general concept for solving a
+                                    particular problem.
+                                    You can follow the pattern details, guidelines and templates, and
+                                    create your solution.
+                                </p>
+                                <hr />
+                                <p>
+                                    MVC is one such design pattern you can use to create coded solutions with a
+                                    framework that can be tailored to suit your application.
+                                </p>
+                                </p>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="infocell" colspan="2">The Parts of MVC</td>
+                        </tr>
+                        <tr>
+                            <td><br>
+                                <i class="material-icons custom">stars</i> M in MVC?<br><br>
+                                <i class="material-icons custom">stars</i> V in MVC?<br><br>
+                                <i class="material-icons custom">stars</i> C in MVC?<br><br>
+                                <i class="material-icons custom">stars</i> Why is MVC popular?<br><br>
+                                <i class="material-icons custom">stars</i> Where is MVC used?<br><br>
+                                <br>
+
+                            </td>
+                            <td>
+                                <p>The Model-View-Controller (MVC) pattern is an <i>architectural</i> pattern that
+                                    separates an application into three main logical components Model, View, and
+                                    Controller. </p>
+                                <p><em>M</em> stands for <em>M</em>odel, the object that represents the data.</p>
+                                <p><em>V</em> stands for <em>V</em>iew, what the user sees.</p>
+                                <p><em>C</em> stands for <em>C</em>ontroller, handles the request and routes to the
+                                    correct view, linking the correct model.</p>
+
+                                <p>The MVC design pattern is much used in industry. <button type="button"
+                                        class="btn btn-info" id="sepofconcernsbutton" data-toggle="popover"
+                                        title="Separation of Concerns" data-trigger="hover" html="true">Separation of
+                                        Concerns </button>
+                                    is the key advantage of using MVC.
+                                </p>
+                                <p>MVC frameworks exist for multiple languages, the pattern is the design concept
+                                    and the framework is the starter structure and code.</p>
+                                <img src="images/whousesmvc.png" alt="users of MVC" class="imageannotate">
+                                <p>
+                                <p>&#128273; The MVC pattern separates the user interface logic from the business logic
+                                    in a dynamic web application.</p>
+                                </p>
+
+                                <div id="sepofconcerns" style="display: none">
+                                    <div>
+                                        <p>In software engineering, separation of concerns is a design strategy for
+                                            separating an application into distinct sections.
+                                            Each section addresses a separate concern.</p>
+
+                                        <p>For example, all of the code that deals with what the user sees might be in
+                                            one section, another
+                                            section might deal with the data in the application, and yet another section
+                                            might handle the requests from the user.</p>
+
+
+                                    </div>
+                                </div>
+
+
+                </div>
+            </div>
+
+            <!-- end content of popover -->
+
+
+            </td>
+            </tr>
+            </table>
+        </div>
+        <div class="modal-footer ">
+            <p>Click outside the box to close</p>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+
+    <!-- Modal 2 ASP.net -->
+    <div class="modal fade" id="aspdotnetmvc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataLabel">ASP.net</h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td style="width:20%"><span class="quote">The goal is to turn data into information and
+                                    information into
+                                    insight – Carly Fiorina</span><br>
+                            </td>
+                            <td><i class="material-icons custom">question_answer</i><br>
+                                <p>MVC is one thing, implementing it is another. It's typical to start a
+                                    coding project with something other than a blank slate. That's where frameworks and
+                                    templates come in.</p>
+                                <p> The IDE is up to you!
+                                    <img class="imageannotatenofocus" src="images\visualstudio.jpg" alt="Visual Studio">
+                                    Visual Studio is a popular choice for developing ASP.net MVC apps,
+                                    the template is supplied.
+                                </p>
+                                <p>
+
+                                    Another popular platform is Spring MVC.
+
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="infocell" colspan="2">Visual Studio</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <i class="material-icons custom">stars</i> Why Visual Studio?
+                                <br><br>
+                                <i class="material-icons custom">stars</i> What's supplied?<br><br>
+                                <i class="material-icons custom">stars</i> Which template?
+
+                                <br><br>
+
+                            </td>
+                            <td>
+                                <p>We will create an ASP.net project, using Visual Studio <button type="button"
+                                        class="btn btn-info" id="aspframeworkbutton" data-toggle="popover"
+                                        title="ASP.net" data-trigger="hover" html="true" data-placement="bottom">
+                                        <img class="visibilitymatters" src="images\aspmvcframework.png">
+                                    </button>
+                                </p>
+                                <p>Choosing ASP.net Web Applications (.NET Framework) gives us the base setup for
+                                    creating an MVC web app with an
+                                    initial sets of views, and an active database for storing data. This template
+                                    provides,
+                                </p>
+                                <ul>
+                                    <li>MVC structure </li>
+                                    <li>.Net Web Framework</li>
+                                    <li>Base markup and CSS </li>
+                                    <li>Organization for creating Models, Views, Controllers</li>
+                                    <li>Testing</li>
+                                </ul>
+                                </p>
+                                <p>We will create a web app with default structure, and then make it unique by
+                                    specializing the app to
+                                    be a recommendation tool for books.
+                                </p>
+                                <p>ASP.net with the MVC template supports adding multiple layers to the application,
+                                    like keeping
+                                    all the code that relates to the database in one section, and then having another
+                                    layer that deals
+                                    with services (and this could be anything, even filtering data). This is called an
+                                    n-tier application.
+                                </p>
+                            </td>
+                        </tr>
+
+
+
+
+
+
+                        <!--  content of popover  -->
+                        <div id="aspframework" style="display: none">
+                            <div>
+                                <img src=".\images\aspmvcframework.png" class="visibilityreallymatters">
+                            </div>
+                        </div>
+
+                        <!-- end content of popover -->
+
+                        </tr>
+                    </table>
+                </div>
+                <div class="modal-footer ">
+                    <p>Click outside the box to close</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal 3 Steps -->
+    <div class="modal fade" id="steps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataLabel">MVC Steps</h5>
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td style="width:20%"><span class="quote">Truth can only be found in one place. The code.
+                                    – Bob Martin</span><br><br>
+                            </td>
+                            <td><i class="material-icons custom">question_answer</i>
+                                <p>Requests for action come from the user, and are routed to the controller,
+                                    which links the data and the view.
+
+                                </p>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="infocell" colspan="2">The Process</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br><br>
+                                <i class="material-icons custom">stars</i> How is a request created?<br><br>
+                                <i class="material-icons custom">stars</i> What part is the 'traffic cop'?<br><br>
+                                <i class="material-icons custom">stars</i> What's the sequence?<br>
+                                <br>
+                            </td>
+                            <td>
+                                <p>The user decides to take an action, like viewing details.</p>
+                                <p>A part of the software called the controller then takes over.</p>
+                                <p>The controller sends back the view, which is the markup combined with the data.</p>
+
+                                <br>
+
+                                <p>You can alter the code and insert additional logic. </p>
+                                <p>The steps?
+                                <ul>
+                                    <li>User requests an action, like viewing details of a basketball player</li>
+                                    <li>Controller software receives the request, gathers data and links
+                                        the view</li>
+                                    <li>Controller software sends back the view and the data to the user</li>
+                                </ul>
+                                </p>
+                                <p>A connection to the database is important and this step has to be taken before the
+                                    links
+                                    are made between the Model representing the data, and the object(s) holding the
+                                    data.
+                                </p>
+                                <p>
+                                    <button type="button" class="btn btn-info" id="steps3button" data-toggle="popover"
+                                        title="Steps in MVC" data-trigger="hover" html="true" data-placement="top">
+
+                                        The Model, Controller and View (MVC)</button> all work together to produce a
+                                    result.
+
+                                </p>
+
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+                <div class="modal-footer ">
+                    <p>Click outside the box to close</p>
+                </div>
+            </div>
+        </div>
+
+
+        <!--  content of popover  -->
+        <div id="steps3" style="display: none">
+            <div>
+                <img src=".\images\steps3.png" class="visibilityreallymatters">
+            </div>
+        </div>
+
+        <!-- end content of popover -->
+
+
+    </div>
+
+    <!-- Modal 4 Solution Explorer -->
+    <div class="modal fade" id="solexplr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataLabel">Software Framework</h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td style="width:20%"><span class="quote">The best features are the ones you get
+                                    without even knowing they exist
+                                    – John Ousterhout</span><br><br>
+
+                            </td>
+                            <td><i class="material-icons custom">question_answer</i>
+                                <p>ASP.net MVC establishes a folder hierarchy for Models, Views and Controllers
+                                    and supporting files. This can be changed, but the framework is initialized
+                                    with routes to these folders as defaults.
+                                </p>
+
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="infocell" colspan="2">Structure</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <br><br><br><br>
+                                <i class="material-icons custom">stars</i> What's the folder breakdown?<br><br>
+                                <i class="material-icons custom">stars</i> Can you override folder names?<br><br>
+                                <i class="material-icons custom">stars</i> What do these folders store?<br><br>
+                            </td>
+                            <td><i class="material-icons custom">question_answer</i>
+                                <p> Folder names and hierarchy as well as file names, can be changed so long as you
+                                    change
+                                    the linkages in the rest of the framework. </p>
+
+                                <img src="images/solexplr.png" class="imageannotate" alt="solution explorer" /></col>
+                                <button type="button" class="btn btn-info" id="solfolderbutton" data-toggle="popover"
+                                    title="Important Folders & Files" data-trigger="hover" html="true"
+                                    data-placement="bottom">???</button>
+                                <div id="solfolder" style="display: none">
+                                    <ul>
+                                        <li>Content - CSS files</li>
+                                        <li>Controllers - controller code</li>
+                                        <li>Models - class code for entities</li>
+                                        <li>Scripts - Javascript</li>
+                                        <li>Views - user interface code</li>
+                                        <li>Web.config - configuration links (like database)</li>
+                                    </ul>
+                                </div>
+
+                </div>
+            </div>
+            </row>
+            </td>
+            </tr>
+            </table>
+
+
+
+        </div>
+        <div class="modal-footer ">
+            <p>Click outside the box to close</p>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <!-- Modal 5 Benefits of ASP.net MVC -->
+    <div class="modal fade" id="benefitsmvcasp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataLabel">The benefits of ASP.net</h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td style="width:20%"><span class="quote">
+                                    The internet is becoming the town square for the global
+                                    village of tomorrow - Bill Gates</span><br>
+
+                            </td>
+                            <td>
+                                <p>Popular choice! .NET is a platform created by Microsoft and composed of tools, programming languages and libraries,
+                                    for building applications for the desktop, 
+                                    for the mobile market and for the web.
+                                </p>
+                                <p>ASP.net is part of the <button type="button" class="btn btn-info"
+                                        id="dotnetbutton" data-toggle="popover" title="Dot Net Framework"
+                                        data-trigger="hover" html="true">
+                                        dot net framework </button>
+                                    .Net solutions deliver a base set of 
+                                    functionality and can be extended by multiple packages available via
+                                    NuGet, the package manager for .NET.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="infocell" colspan="2">ASP.NET</td>
+                        </tr>
+                        <tr>
+                            <td> <i class="material-icons custom">stars</i> Why use ASP.net MVC?
+                                <br><br>
+                                <i class="material-icons custom">stars</i> Who uses ASP.net MVC?
+                                <br><br>
+                            </td>
+                            <td><i class="material-icons custom">question_answer</i>
+
+                                <p>ASP.NET is an open source web framework, for building modern web apps and
+                                    services with .NET.
+
+                                    ASP.NET is cross platform and runs on Windows, Linux, macOS.
+                                </p>
+
+                                <p> <img src="images/aspbenefits.png">
+                                </p>
+
+                                <p>Advantages
+                                </p>
+                                <p>
+                                <ul>
+                                    <li>Separation of concerns (SoC) via MVC template
+                                    <li>Organized and familiar code base
+                                    <li>Easier for web application to add functionality
+                                    <li>Easier integration with client side tools
+                                        like those built with jQuery
+                                    <li>Search Engine Optimization (SEO)
+                                    <li>Developers can adapt to suit specifications
+
+
+                                </ul>
+                                <p> Used at Crowe-Horwath, 
+                                    DeveloperTown, After School HQ ....!</p>
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+
+
+                <!--  content of popovers  -->
+
+                <div id="dotnethistory" style="display: none">
+                    <div>
+                        <p>Microsoft started to build the .NET framework in the 1990s to present (latest release November 2020).</p>
+
+                        <p>The .Net framework is a software development framework for building applications on Windows, and is part of the .Net platform - which supports building applications across multiple operating systems - like Linux, MacOS, iOS, Android.</p>
+
+
+                    </div>
+                </div>
+
+
+
+                <div id="httpinfo" style="display: none">
+                    <div>
+                        <p>HTTP, HyperText Transfer Protocol.</p>
+                        <p>HTTP is a language that is used to GET web documents from sites so that the web page can
+                            be rendered by your browser. Information may be sent back with an HTTP
+                            POST request. GET and POST are 2 common HTTP
+                            requests.
+                        </p>
+                    </div>
+                </div>
+
+                <div id="htmlinfo" style="display: none">
+                    <div>
+                        <p>HTML, HyperText Markup Language.</p>
+                        <p>HTML is a formatting or markup language that is used format web pages.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- end content of popover -->
+
+            </div>
+            <div class="modal-footer ">
+                <p>Click outside the box to close</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal 6 Mechanics -->
+    <div class="modal fade" id="programming" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dataLabel">Mechanics of ASP.net MVC</h5>
+
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td style="width:20%"><span class="quote">Talk is cheap, show me the code
+                                    – Linus Torvalds</span><br><br>
+
+                            </td>
+                            <td><i class="material-icons custom">question_answer</i><br>
+                                <p>A request is generated by the user, which is acted on by the controller.
+                                    The controller sends back the user interface, with data from the
+                                    database that corresponds to the request.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="infocell" colspan="2">Code, Requests To Transfer Information And Embed Information</td>
+                        </tr>
+                        <tr>
+                            <td>
+
+                                <i class="material-icons custom">stars</i> What's HTTP ?<br><br>
+                                <i class="material-icons custom">stars</i> What's an HTTP request?<br><br>
+                                <i class="material-icons custom">stars</i> What's HTML?<br><br>
+                                <i class="material-icons custom">stars</i> What's Razor?<br><br>
+                            </td>
+                            <td>
+                                <i class="material-icons custom">question_answer</i><br>
+                                <p></p>
+                                <p>
+                                    <button type="button" class="btn btn-info" id="httpbutton" data-toggle="popover"
+                                        title="HTTP" data-trigger="hover" html="true">HTTP</button> 
+                               
+                                    GET requests (for getting data) and POST requests (for saving data) are created. 
+                                    HTTP get requests
+                                    ask a server for data. HTTP Post requests send data back to to the server.
+                                </p>
+                                <p>The views are created in a markup 
+                                    language called <button type="button" class="btn btn-info" id="htmlbutton"
+                                        data-toggle="popover" title="HTML" data-trigger="hover"
+                                        html="true">HTML</button>, with the help of a server side
+                                    language called <button type="button" class="btn btn-info" id="razorbutton"
+                                        data-toggle="popover" title="Razor" data-trigger="hover"
+                                        html="true">Razor</button> - allows Visual basic or C# code to be embedded in an
+                                    HTML document. By running on the server,
+                                    Razor can do more sophisticated tasks like accessing databases, which is what we
+                                    will do.</p>
+                            </td>
+                            <tr>
+                                <td class="infocell" colspan="2">Code, Model+View+Controller</td>
+                            </tr>   
+                            <tr>
+                                <td>
+
+                                    <i class="material-icons custom">stars</i> What's the code in the Model ?<br><br>
+                                    <i class="material-icons custom">stars</i> View?<br><br>
+                                    <i class="material-icons custom">stars</i> Controller?<br><br>
+                                 
+                                </td>
+                                <td>
+                                    <i class="material-icons custom">question_answer</i><br>
+                                    <p></p>
+                                    <p>We start by creating the Model, just one for now. 
+                                        The Model is the class that describes the columns in 
+                                        the database table. Our model is about books, so we will use Book in
+                                        <button type="button" class="btn btn-info" id="modelcodebutton" data-toggle="popover"
+                                            title="Model Code" data-placement ="top" data-trigger="hover" html="true">book.cs</button>, 
+                                            in the Models folder.
+                                    </p>
+                                    <p>The View is what the user sees, and this is created using a combination of HTML and Razor syntax, 
+                                        as in this View, 
+                                        <button type="button" class="btn btn-info" id="createviewbutton" data-toggle="popover"
+                                        title="Create View Sample" data-placement ="top" data-trigger="hover" html="true">create.cshtml</button>, for rendering the
+                                        <button type="button" class="btn btn-info" id="createpagebutton" data-toggle="popover"
+                                        title="Rendered Create View" data-placement ="top" data-trigger="hover" 
+                                        html="true">Create page</button>, the page that let's the user enter 
+                                        details for a new book recommendation.</p>
+                                        <p>The controller code, in this example, <button type="button" class="btn btn-info" 
+                                            id="createcontrollermethodsbutton" data-toggle="popover"
+                                            title="Get & Post Controller Methods, Create" data-placement ="top" data-trigger="hover" 
+                                            html="true">the Get and Post methods</button> for the Create View,  links the data with 
+                                            the view, and coordinates 
+                                            either a get or a post request, with the data required.</p>
+                            </td>  
+                            </tr>                    
+                    </table>
+
+
+
+                </div>
+                <div class="modal-footer ">
+                    <p>Click outside the box to close</p>
+                </div>
+            </div>
+        </div>
+
+        <!--  content of popovers  -->
+
+
+        <div id="createcontrollermethodsinfo" style="display: none">
+            <div>
+                <p>
+                    <img class="codesamples" src="images/createcontrollermethods.png">
+                </p>
+            </div>
+        </div>
+        <div id="createviewinfo" style="display: none">
+            <div>
+                <p>
+                    <img class="codesamples" src="images/createview.png">
+                </p>
+            </div>
+        </div>
+
+        <div id="createpageinfo" style="display: none">
+            <div>
+                <p>
+                    <img class="codesamples" src="images/createpage.png">
+                </p>
+            </div>
+        </div>
+
+
+        <div id="modelcodeinfo" style="display: none">
+            <div>
+                <p>
+                    <img class="codesamples" src="images/bookmodelcs.png">
+                </p>
+            </div>
+        </div>
+
+
+
+        <div id="httpinfo" style="display: none">
+            <div>
+                <p>HTTP, HyperText Transfer Protocol.</p>
+                <p>HTTP is a language that is used to GET web documents from sites so that the web page can
+                    be rendered by your browser. Information may be sent back to the remote site with a HTTP
+                    POST request. GET and POST are 2 common HTTP
+                    requests.
+                </p>
+            </div>
+        </div>
+
+        <div id="htmlinfo" style="display: none">
+            <div>
+                <p>HTML, HyperText Markup Language.</p>
+                <p>HTML is a formatting or markup language that is used format web pages.
+                </p>
+            </div>
+        </div>
+
+
+
+        <div id="razorinfo" style="display: none">
+            <div>
+                <p>Razor, Server side Markup Language.</p>
+                <p>Razor is a markup syntax used to embed C# or VB into web pages. Watch for the @!
+                    <br>
+                    &lt;ul&gt;
+                    @for (int i = 0; i &lt; 10; i++) {<br>
+                    &lt;li&gt;@i&lt;/li&gt;<br>
+                    }<br>
+                    &lt;/ul&gt;<br>
+                </p>
+            </div>
+        </div>
+        <!-- end content of popover -->
+    </div>
+
+
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js "
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN "
+        crossorigin="anonymous "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js "
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q "
+        crossorigin="anonymous "></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js "
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl "
+        crossorigin="anonymous "></script>
+    <script>
+        $(function () {
+            $('[data-toggle="popover "]').popover({ container: 'body' });
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#spacebutton').popover({
+                html: true,
+                content: function () {
+                    return $('#spaceinfo').html();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#sepofconcernsbutton').popover({
+                html: true,
+                content: function () {
+                    return $('#sepofconcerns').html();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#steps3button').popover({
+                html: true,
+                content: function () {
+                    return $('#steps3').html();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#aspframeworkbutton').popover({
+                html: true,
+                content: function () {
+                    return $('#aspframework').html();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#solfolderbutton').popover({
+                html: true,
+                content: function () {
+                    return $('#solfolder').html();
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#httpbutton').popover({
+                html: true,
+                content: function () {
+                    return $('#httpinfo').html();
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#htmlbutton').popover({
+                html: true,
+                content: function () {
+                    return $('#htmlinfo').html();
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#razorbutton').popover({
+                html: true,
+                content: function () {
+                    return $('#razorinfo').html();
+                }
+            });
+        });
+    </script>
+    <script>
+        var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'))
+        var collapseList = collapseElementList.map(function (collapseEl) {
+            return new bootstrap.Collapse(collapseEl)
+        })
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#dotnetbutton').popover({
+                html: true,
+                content: function () {
+                    return $('#dotnethistory').html();
+                }
+            });
+        });
+
+    </script>
+      <script>
+        $(document).ready(function () {
+            $('#modelcodebutton').popover({
+                html: true,
+                content: function () {
+                    return $('#modelcodeinfo').html();
+                }
+            });
+        });
+
+    </script>
+
+
+<script>
+    $(document).ready(function () {
+        $('#createviewbutton').popover({
+            html: true,
+            content: function () {
+                return $('#createviewinfo').html();
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#createpagebutton').popover({
+            html: true,
+            content: function () {
+                return $('#createpageinfo').html();
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#createcontrollermethodsbutton').popover({
+            html: true,
+            content: function () {
+                return $('#createcontrollermethodsinfo').html();
+            }
+        });
+    });
+
+</script>
+
+<script>
+    function instructions()
+    {
+         location.href = "instructions.pdf";
+    } 
+    </script>
+</body>
+
+</html>
